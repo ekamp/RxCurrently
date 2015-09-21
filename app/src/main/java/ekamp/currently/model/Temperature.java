@@ -1,7 +1,10 @@
 package ekamp.currently.model;
 
 /**
- * Created by erikkamp on 9/20/15.
+ * Contains all weather information relating to the temperature.
+ *
+ * @author Erik Kamp
+ * @since 09/20/2015
  */
 public class Temperature {
 

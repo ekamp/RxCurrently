@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers;
  * Reactive communication link between current weather fragment and the weather service.
  *
  * @author Erik Kamp
- * @since v1.0
+ * @since 9/20/15
  */
 public class WeatherPresenter {
 
@@ -24,6 +24,12 @@ public class WeatherPresenter {
         this.hostCallBack = hostCallBack;
     }
 
+    /**
+     * Starts and registers the current daily weather request so that the request is backgrounded
+     * and the main thread receives data updates via an {@link Observer}.
+     *
+     * @param cityName name of the city in which to grab weather updates from.
+     */
     public void loadCurrentWeather(String cityName) {
         currentWeatherService.getCurrentWeatherServiceAPI()
                 .getWeatherInformation(cityName, CurrentWeatherService.TEMP_TYPE_IMPERIAL)
@@ -49,6 +55,12 @@ public class WeatherPresenter {
                 });
     }
 
+    /**
+     * Starts and registers the forecast weather request so that the request is backgrounded
+     * and the main thread receives data updates via an {@link Observer}.
+     *
+     * @param cityName name of the city in which to grab weather updates from.
+     */
     public void loadForecast(String cityName) {
         currentWeatherService.getForcastedWeatherServiceAPI()
                 .getWeatherInformation(cityName, CurrentWeatherService.TEMP_TYPE_IMPERIAL)

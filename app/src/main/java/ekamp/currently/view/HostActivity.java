@@ -10,6 +10,15 @@ import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.presenters.WeatherPresenter;
 import ekamp.currently.services.CurrentWeatherService;
 
+
+/**
+ * Main host activity of the application. This activity is responsible for rendering the main UI
+ * and rendering and supporting the {@link android.support.v4.view.ViewPager} that houses the
+ * weather fragments.
+ *
+ * @author Erik Kamp
+ * @since 9/20/15
+ */
 public class HostActivity extends AppCompatActivity implements HostCallBack {
 
     private WeatherPresenter weatherPresenter;

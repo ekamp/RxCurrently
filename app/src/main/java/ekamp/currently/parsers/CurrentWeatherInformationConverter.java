@@ -16,7 +16,7 @@ import ekamp.currently.model.Wind;
  * Converts from the REST response to {@link WeatherInformation}.
  *
  * @author Erik Kamp
- * @since 9/20/15.
+ * @since 9/20/15
  */
 public class CurrentWeatherInformationConverter implements JsonDeserializer<WeatherInformation> {
 
@@ -29,20 +29,30 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
 
     @Override
     public WeatherInformation deserialize(JsonElement rootJsonElement, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+        JsonObject jsonObject = rootJsonElement.getAsJsonObject();
+        return parseWeatherInformation(jsonObject);
+    }
+
+    /**
+     * Parses a weather {@link JsonObject} into its respective POJO {@link WeatherInformation}
+     *
+     * @param rootJsonWeatherObject object to be parsed
+     * @throws JsonParseException this is thrown when the Json weather information representation is missing a field.
+     * @return parsed {@link WeatherInformation}
+     */
+    public static WeatherInformation parseWeatherInformation(JsonObject rootJsonWeatherObject) throws JsonParseException {
         WeatherInformation weatherInformation = new WeatherInformation();
         Temperature temperature;
         Wind wind;
-
-        JsonObject jsonObject = rootJsonElement.getAsJsonObject();
-
-        if (jsonObject.has(TAG_MAIN_WEATHER)) {
-            temperature = parseTemperatureInformation(jsonObject.get(TAG_MAIN_WEATHER).getAsJsonObject());
+        if (rootJsonWeatherObject.has(TAG_MAIN_WEATHER)) {
+            temperature = parseTemperatureInformation(rootJsonWeatherObject.get(TAG_MAIN_WEATHER).getAsJsonObject());
         } else {
             temperature = Temperature.getDefaultValue();
         }
 
-        if (jsonObject.has(TAG_WIND)) {
-            wind = parseWindInformation(jsonObject.get(TAG_WIND).getAsJsonObject());
+        if (rootJsonWeatherObject.has(TAG_WIND)) {
+            wind = parseWindInformation(rootJsonWeatherObject.get(TAG_WIND).getAsJsonObject());
         } else {
             wind = Wind.getDefaultValue();
         }
@@ -52,7 +62,7 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
         return weatherInformation;
     }
 
-    private Temperature parseTemperatureInformation(JsonObject temperatureRoot) {
+    private static Temperature parseTemperatureInformation(JsonObject temperatureRoot) throws JsonParseException {
         double minTemp, maxTemp, humidity, currentTemp;
         if (!temperatureRoot.has(TAG_TEMP_MIN) || !temperatureRoot.has(TAG_TEMP_MAX)
                 || !temperatureRoot.has(TAG_TEMP_HUMIDITY)) {
@@ -65,7 +75,7 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
         return new Temperature(minTemp, maxTemp, humidity, currentTemp);
     }
 
-    private Wind parseWindInformation(JsonObject windRoot) {
+    private static Wind parseWindInformation(JsonObject windRoot) throws JsonParseException {
         double windSpeed, windDirection;
         if (!windRoot.has(TAG_WIND_SPEED) || !windRoot.has(TAG_WIND_DIRECTION)) {
             throw new JsonParseException(ERROR_WIND_PARSE, new Throwable());

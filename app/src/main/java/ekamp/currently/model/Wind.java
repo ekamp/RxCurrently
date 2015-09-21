@@ -1,7 +1,10 @@
 package ekamp.currently.model;
 
 /**
- * Created by erikkamp on 9/20/15.
+ * Contains information relating to Wind conditions, such as wind speed and direction.
+ *
+ * @author Erik Kamp
+ * @since 09/20/2015
  */
 public class Wind {
 
@@ -14,8 +17,8 @@ public class Wind {
         this.direction = direction;
     }
 
-    public static Wind getDefaultValue(){
-        return new Wind(DEFAULT_TEMP_VALUE,DEFAULT_TEMP_VALUE);
+    public static Wind getDefaultValue() {
+        return new Wind(DEFAULT_TEMP_VALUE, DEFAULT_TEMP_VALUE);
     }
 
     public double getSpeed() {
