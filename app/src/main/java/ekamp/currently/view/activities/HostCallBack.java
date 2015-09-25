@@ -1,4 +1,4 @@
-package ekamp.currently.view;
+package ekamp.currently.view.activities;
 
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;

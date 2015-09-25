@@ -1,14 +1,18 @@
-package ekamp.currently.view;
+package ekamp.currently.view.activities;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ekamp.currently.R;
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.presenters.WeatherPresenter;
-import ekamp.currently.services.CurrentWeatherService;
+import ekamp.currently.services.WeatherService;
+import ekamp.currently.view.adapters.WeatherPagerAdapter;
 
 
 /**
@@ -22,19 +26,24 @@ import ekamp.currently.services.CurrentWeatherService;
 public class HostActivity extends AppCompatActivity implements HostCallBack {
 
     private WeatherPresenter weatherPresenter;
-    private CurrentWeatherService currentWeatherService;
+    private WeatherService weatherService;
+    private WeatherPagerAdapter weatherPagerAdapter;
+
+    @Bind(R.id.forecast_weather_view_pager)
+    ViewPager forecastWeatherViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
+        ButterKnife.bind(this);
         initWeatherService();
         requestWeatherInformation();
     }
 
     private void initWeatherService() {
-        currentWeatherService = new CurrentWeatherService();
-        weatherPresenter = new WeatherPresenter(currentWeatherService, this);
+        weatherService = new WeatherService();
+        weatherPresenter = new WeatherPresenter(weatherService, this);
     }
 
     private void requestWeatherInformation() {
@@ -55,10 +64,16 @@ public class HostActivity extends AppCompatActivity implements HostCallBack {
     @Override
     public void onForecastSuccess(ForecastInformation forecastInformation) {
         Log.e(getClass().getName(), forecastInformation.toString());
+        createForecastViewPagerWithData(forecastInformation);
     }
 
     @Override
     public void onForecastError(Error error) {
         Log.e(getClass().getName(), "Error " + error.toString());
+    }
+
+    private void createForecastViewPagerWithData(ForecastInformation forecastInformation) {
+        weatherPagerAdapter = new WeatherPagerAdapter(getSupportFragmentManager(), forecastInformation.getWeeklyWeatherList());
+        forecastWeatherViewPager.setAdapter(weatherPagerAdapter);
     }
 }

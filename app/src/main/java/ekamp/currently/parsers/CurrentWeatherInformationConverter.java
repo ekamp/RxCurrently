@@ -9,6 +9,7 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 import ekamp.currently.model.Temperature;
+import ekamp.currently.model.WeatherDescription;
 import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.model.Wind;
 
@@ -22,10 +23,12 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
 
     private static final String TAG_MAIN_WEATHER = "main", TAG_TEMP_CURRENT = "temp", TAG_TEMP_HUMIDITY = "humidity",
             TAG_TEMP_MIN = "temp_min", TAG_TEMP_MAX = "temp_max", TAG_WIND = "wind", TAG_WIND_SPEED = "speed",
-            TAG_WIND_DIRECTION = "deg";
+            TAG_WIND_DIRECTION = "deg", TAG_WEATHER_DESCRIPTION_ROOT = "weather", TAG_WEATHER_DESCRIPTION = "description",
+            TAG_WEATHER_ICON = "icon";
 
     public static final String ERROR_TEMP_PARSE = "Temperature parsing error related to missing field",
-            ERROR_WIND_PARSE = "Wind parsing error related to missing field";
+            ERROR_WIND_PARSE = "Wind parsing error related to missing field",
+            ERROR_DESCRIPTION_PARSE = "Weather parsing error related to missing field";
 
     @Override
     public WeatherInformation deserialize(JsonElement rootJsonElement, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -38,12 +41,13 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
      * Parses a weather {@link JsonObject} into its respective POJO {@link WeatherInformation}
      *
      * @param rootJsonWeatherObject object to be parsed
-     * @throws JsonParseException this is thrown when the Json weather information representation is missing a field.
      * @return parsed {@link WeatherInformation}
+     * @throws JsonParseException this is thrown when the Json weather information representation is missing a field.
      */
     public static WeatherInformation parseWeatherInformation(JsonObject rootJsonWeatherObject) throws JsonParseException {
         WeatherInformation weatherInformation = new WeatherInformation();
         Temperature temperature;
+        WeatherDescription weatherDescription;
         Wind wind;
         if (rootJsonWeatherObject.has(TAG_MAIN_WEATHER)) {
             temperature = parseTemperatureInformation(rootJsonWeatherObject.get(TAG_MAIN_WEATHER).getAsJsonObject());
@@ -57,8 +61,16 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
             wind = Wind.getDefaultValue();
         }
 
+        if (rootJsonWeatherObject.has(TAG_WEATHER_DESCRIPTION_ROOT)) {
+            weatherDescription = parseWeatherDescription(rootJsonWeatherObject.get(TAG_WEATHER_DESCRIPTION_ROOT)
+                    .getAsJsonArray().get(0).getAsJsonObject());
+        } else {
+            weatherDescription = WeatherDescription.getDefaultValue();
+        }
+
         weatherInformation.setTemperatureInformation(temperature);
         weatherInformation.setWindInformation(wind);
+        weatherInformation.setWeatherDescription(weatherDescription);
         return weatherInformation;
     }
 
@@ -83,5 +95,15 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
         windSpeed = windRoot.getAsJsonPrimitive(TAG_WIND_SPEED).getAsDouble();
         windDirection = windRoot.getAsJsonPrimitive(TAG_WIND_DIRECTION).getAsDouble();
         return new Wind(windSpeed, windDirection);
+    }
+
+    private static WeatherDescription parseWeatherDescription(JsonObject weatherDescriptionRoot) throws JsonParseException {
+        String icon, generalDescription;
+        if (!weatherDescriptionRoot.has(TAG_WEATHER_DESCRIPTION) || !weatherDescriptionRoot.has(TAG_WEATHER_ICON)) {
+            throw new JsonParseException(ERROR_DESCRIPTION_PARSE, new Throwable());
+        }
+        icon = weatherDescriptionRoot.get(TAG_WEATHER_ICON).getAsString();
+        generalDescription = weatherDescriptionRoot.get(TAG_WEATHER_DESCRIPTION).getAsString();
+        return new WeatherDescription(icon, generalDescription);
     }
 }

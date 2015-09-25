@@ -2,8 +2,8 @@ package ekamp.currently.presenters;
 
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;
-import ekamp.currently.services.CurrentWeatherService;
-import ekamp.currently.view.HostCallBack;
+import ekamp.currently.services.WeatherService;
+import ekamp.currently.view.activities.HostCallBack;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -16,11 +16,11 @@ import rx.schedulers.Schedulers;
  */
 public class WeatherPresenter {
 
-    public CurrentWeatherService currentWeatherService;
+    public WeatherService weatherService;
     private HostCallBack hostCallBack;
 
-    public WeatherPresenter(CurrentWeatherService currentWeatherService, HostCallBack hostCallBack) {
-        this.currentWeatherService = currentWeatherService;
+    public WeatherPresenter(WeatherService weatherService, HostCallBack hostCallBack) {
+        this.weatherService = weatherService;
         this.hostCallBack = hostCallBack;
     }
 
@@ -31,8 +31,8 @@ public class WeatherPresenter {
      * @param cityName name of the city in which to grab weather updates from.
      */
     public void loadCurrentWeather(String cityName) {
-        currentWeatherService.getCurrentWeatherServiceAPI()
-                .getWeatherInformation(cityName, CurrentWeatherService.TEMP_TYPE_IMPERIAL)
+        weatherService.getCurrentWeatherServiceAPI()
+                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<WeatherInformation>() {
@@ -62,8 +62,8 @@ public class WeatherPresenter {
      * @param cityName name of the city in which to grab weather updates from.
      */
     public void loadForecast(String cityName) {
-        currentWeatherService.getForcastedWeatherServiceAPI()
-                .getWeatherInformation(cityName, CurrentWeatherService.TEMP_TYPE_IMPERIAL)
+        weatherService.getForcastedWeatherServiceAPI()
+                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ForecastInformation>() {

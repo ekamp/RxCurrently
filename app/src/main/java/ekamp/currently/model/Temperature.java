@@ -27,16 +27,32 @@ public class Temperature {
         return minTemp;
     }
 
+    public String getMinTempForDisplay() {
+        return Double.toString(minTemp);
+    }
+
     public double getMaxTemp() {
         return maxTemp;
+    }
+
+    public String getMaxTempForDisplay() {
+        return Double.toString(maxTemp);
     }
 
     public double getHumidity() {
         return humidity;
     }
 
+    public String getHumidityForDisplay() {
+        return Double.toString(humidity);
+    }
+
     public double getCurrentTemp() {
         return currentTemp;
+    }
+
+    public String getCurrentTempForDisplay() {
+        return Double.toString(currentTemp);
     }
 
     public void setMinTemp(double minTemp) {

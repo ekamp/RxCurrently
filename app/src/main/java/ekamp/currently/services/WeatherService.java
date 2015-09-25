@@ -21,13 +21,13 @@ import rx.Observable;
  * @author Erik Kamp
  * @since 9/20/15
  */
-public class CurrentWeatherService {
+public class WeatherService {
     private static final String BASE_URL = "http://api.openweathermap.org/data/2.5";
     public static final String TEMP_TYPE_IMPERIAL = "Imperial", TEMP_TYPE_METRIC = "Metric";
     private CurrentWeatherServiceAPI currentWeatherServiceAPI;
     private ForcastedWeatherServiceAPI forcastedWeatherServiceAPI;
 
-    public CurrentWeatherService() {
+    public WeatherService() {
         RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestInterceptor.RequestFacade request) {

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Currently</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- Forecasted Weather Fragment Labels -->
+    <string name="max_temperature_label">Max Temperature : </string>
+    <string name="min_temperature_label">Min Temperature : </string>
+    <string name="humidity_label">Humidity :</string>
+    <string name="wind_speed_label">Wind Speed :</string>
+
 </resources>
