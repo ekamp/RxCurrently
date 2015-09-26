@@ -9,7 +9,7 @@ package ekamp.currently.model;
 public class Temperature {
 
     public static final int DEFAULT_TEMP_VALUE = 0;
-
+    public static final char DEGREE_SYMBOL = '\u00B0';
     private double minTemp, maxTemp, humidity, currentTemp;
 
     public Temperature(double minTemp, double maxTemp, double humidity, double currentTemp) {
@@ -28,7 +28,7 @@ public class Temperature {
     }
 
     public String getMinTempForDisplay() {
-        return Double.toString(minTemp);
+        return Double.toString(minTemp) + DEGREE_SYMBOL;
     }
 
     public double getMaxTemp() {
@@ -36,7 +36,7 @@ public class Temperature {
     }
 
     public String getMaxTempForDisplay() {
-        return Double.toString(maxTemp);
+        return Double.toString(maxTemp) + DEGREE_SYMBOL;
     }
 
     public double getHumidity() {
@@ -52,7 +52,7 @@ public class Temperature {
     }
 
     public String getCurrentTempForDisplay() {
-        return Double.toString(currentTemp);
+        return Double.toString(currentTemp) + DEGREE_SYMBOL;
     }
 
     public void setMinTemp(double minTemp) {

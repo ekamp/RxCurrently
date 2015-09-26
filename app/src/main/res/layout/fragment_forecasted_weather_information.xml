@@ -11,7 +11,7 @@
         android:layout_margin="16dp"
         android:textSize="@dimen/abc_text_size_display_1_material"
         android:textStyle="bold"
-        tools:text="90" />
+        tools:text="90\u00B0" />
 
     <ImageView
         android:id="@+id/weather_icon"
@@ -32,14 +32,15 @@
 
     <TextView
         android:id="@+id/max_temperature"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/weather_icon"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="32dp"
+        android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
-        tools:text="100" />
+        tools:text="100\u00B0" />
 
     <TextView
         android:id="@+id/min_temperature_label"
@@ -53,14 +54,15 @@
 
     <TextView
         android:id="@+id/min_temperature"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/max_temperature"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="32dp"
+        android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
-        tools:text="70" />
+        tools:text="70\u00B0" />
 
     <TextView
         android:id="@+id/humidity_label"
@@ -74,11 +76,12 @@
 
     <TextView
         android:id="@+id/humidity"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/min_temperature"
         android:layout_marginRight="32dp"
+        android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
         tools:text="20%" />
 
@@ -93,12 +96,13 @@
 
     <TextView
         android:id="@+id/wind_speed"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/humidity_label"
         android:layout_marginRight="32dp"
+        android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
-        tools:text="30" />
+        tools:text="30 mph" />
 
 </RelativeLayout>

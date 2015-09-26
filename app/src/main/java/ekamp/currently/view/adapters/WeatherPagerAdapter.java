@@ -4,9 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ekamp.currently.model.WeatherInformation;
+import ekamp.currently.view.ViewUtils;
 import ekamp.currently.view.fragments.WeatherFragment;
 
 /**
@@ -27,6 +29,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return WeatherFragment.newInstance(weatherInformationList.get(position));
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return ViewUtils.formatWeatherInformationTabTitle(weatherInformationList.get(position));
     }
 
     @Override

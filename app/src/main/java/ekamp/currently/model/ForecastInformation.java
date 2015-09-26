@@ -16,6 +16,13 @@ public class ForecastInformation {
         this.weeklyWeatherList = weeklyWeatherList;
     }
 
+    public ForecastInformation() {
+    }
+
+    public void setWeeklyWeatherList(ArrayList<WeatherInformation> weeklyWeatherList) {
+        this.weeklyWeatherList = weeklyWeatherList;
+    }
+
     public ArrayList<WeatherInformation> getWeeklyWeatherList() {
         return weeklyWeatherList;
     }
