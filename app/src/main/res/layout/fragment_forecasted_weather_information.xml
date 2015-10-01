@@ -8,25 +8,48 @@
         android:id="@+id/current_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/standard_weather_element_margin"
         android:textSize="@dimen/abc_text_size_display_1_material"
         android:textStyle="bold"
         tools:text="90\u00B0" />
 
+    <TextView
+        android:id="@+id/current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/standard_weather_element_margin"
+        android:layout_toRightOf="@+id/weather_icon"
+        android:textSize="@dimen/abc_text_size_large_material"
+        tools:text="Red Bank NJ" />
+
     <ImageView
         android:id="@+id/weather_icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/weather_icon_width"
+        android:layout_height="@dimen/weather_icon_height"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/weather_icon_top_margin"
+        android:contentDescription="@string/weather_icon_content_description"
         tools:src="@drawable/placeholder_weather" />
+
+    <TextView
+        android:id="@+id/weather_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weather_icon"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:gravity="center"
+        android:textSize="@dimen/abc_text_size_title_material"
+        android:textStyle="bold"
+        tools:text="Sunny and nice out ^_^" />
 
     <TextView
         android:id="@+id/max_temperature_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weather_icon"
-        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/weather_description"
+        android:layout_marginLeft="@dimen/standard_weather_element_margin"
         android:text="@string/max_temperature_label"
         android:textSize="@dimen/abc_text_size_title_material" />
 
@@ -35,9 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/weather_icon"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="32dp"
+        android:layout_below="@+id/weather_description"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:layout_marginRight="@dimen/weather_information_right_margin"
         android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
         tools:text="100\u00B0" />
@@ -47,8 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/max_temperature"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:layout_marginLeft="@dimen/standard_weather_element_margin"
         android:text="@string/min_temperature_label"
         android:textSize="@dimen/abc_text_size_title_material" />
 
@@ -58,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/max_temperature"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:layout_marginRight="@dimen/weather_information_right_margin"
         android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
         tools:text="70\u00B0" />
@@ -69,8 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/min_temperature"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:layout_marginLeft="@dimen/standard_weather_element_margin"
         android:text="@string/humidity_label"
         android:textSize="@dimen/abc_text_size_title_material" />
 
@@ -80,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/min_temperature"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="@dimen/weather_information_right_margin"
         android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
         tools:text="20%" />
@@ -90,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/humidity_label"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/standard_weather_element_margin"
         android:text="@string/wind_speed_label"
         android:textSize="@dimen/abc_text_size_title_material" />
 
@@ -100,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/humidity_label"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="@dimen/weather_information_right_margin"
         android:gravity="right"
         android:textSize="@dimen/abc_text_size_title_material"
         tools:text="30 mph" />

@@ -6,8 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import org.joda.time.DateTime;
-
 import java.lang.reflect.Type;
 
 import ekamp.currently.model.Temperature;
@@ -46,27 +44,40 @@ public class CurrentWeatherInformationConverter implements JsonDeserializer<Weat
      * @return parsed {@link WeatherInformation}
      * @throws JsonParseException this is thrown when the Json weather information representation is missing a field.
      */
-    public static WeatherInformation parseWeatherInformation(JsonObject rootJsonWeatherObject) throws JsonParseException {
+    public static WeatherInformation parseWeatherInformation(JsonObject rootJsonWeatherObject) {
         WeatherInformation weatherInformation = new WeatherInformation();
         Temperature temperature;
         WeatherDescription weatherDescription;
         Wind wind;
-        if (rootJsonWeatherObject.has(TAG_MAIN_WEATHER)) {
-            temperature = parseTemperatureInformation(rootJsonWeatherObject.get(TAG_MAIN_WEATHER).getAsJsonObject());
-        } else {
+
+        try {
+            if (rootJsonWeatherObject.has(TAG_MAIN_WEATHER)) {
+                temperature = parseTemperatureInformation(rootJsonWeatherObject.get(TAG_MAIN_WEATHER).getAsJsonObject());
+            } else {
+                temperature = Temperature.getDefaultValue();
+            }
+        } catch (JsonParseException parseException) {
             temperature = Temperature.getDefaultValue();
         }
 
-        if (rootJsonWeatherObject.has(TAG_WIND)) {
-            wind = parseWindInformation(rootJsonWeatherObject.get(TAG_WIND).getAsJsonObject());
-        } else {
+        try {
+            if (rootJsonWeatherObject.has(TAG_WIND)) {
+                wind = parseWindInformation(rootJsonWeatherObject.get(TAG_WIND).getAsJsonObject());
+            } else {
+                wind = Wind.getDefaultValue();
+            }
+        } catch (JsonParseException parseException) {
             wind = Wind.getDefaultValue();
         }
 
-        if (rootJsonWeatherObject.has(TAG_WEATHER_DESCRIPTION_ROOT)) {
-            weatherDescription = parseWeatherDescription(rootJsonWeatherObject.get(TAG_WEATHER_DESCRIPTION_ROOT)
-                    .getAsJsonArray().get(0).getAsJsonObject());
-        } else {
+        try {
+            if (rootJsonWeatherObject.has(TAG_WEATHER_DESCRIPTION_ROOT)) {
+                weatherDescription = parseWeatherDescription(rootJsonWeatherObject.get(TAG_WEATHER_DESCRIPTION_ROOT)
+                        .getAsJsonArray().get(0).getAsJsonObject());
+            } else {
+                weatherDescription = WeatherDescription.getDefaultValue();
+            }
+        } catch (JsonParseException parseException) {
             weatherDescription = WeatherDescription.getDefaultValue();
         }
 

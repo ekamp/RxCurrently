@@ -4,11 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ekamp.currently.model.WeatherInformation;
-import ekamp.currently.view.ViewUtils;
+import ekamp.currently.utils.ViewUtils;
 import ekamp.currently.view.fragments.WeatherFragment;
 
 /**

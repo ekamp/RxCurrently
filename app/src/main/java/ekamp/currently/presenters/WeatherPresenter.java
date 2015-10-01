@@ -3,7 +3,7 @@ package ekamp.currently.presenters;
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.services.WeatherService;
-import ekamp.currently.view.activities.HostCallBack;
+import ekamp.currently.view.activities.BaseCallbackActivity;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,11 +17,11 @@ import rx.schedulers.Schedulers;
 public class WeatherPresenter {
 
     public WeatherService weatherService;
-    private HostCallBack hostCallBack;
+    private BaseCallbackActivity baseCallbackActivity;
 
-    public WeatherPresenter(WeatherService weatherService, HostCallBack hostCallBack) {
+    public WeatherPresenter(WeatherService weatherService, BaseCallbackActivity baseCallbackActivity) {
         this.weatherService = weatherService;
-        this.hostCallBack = hostCallBack;
+        this.baseCallbackActivity = baseCallbackActivity;
     }
 
     /**
@@ -44,13 +44,13 @@ public class WeatherPresenter {
                     @Override
                     public void onError(Throwable e) {
                         //Notify about an error
-                        hostCallBack.onCurrentWeatherError(new Error(e));
+                        baseCallbackActivity.onCurrentWeatherError(new Error(e));
                     }
 
                     @Override
                     public void onNext(WeatherInformation weatherInformation) {
                         //Notify about completion or next event
-                        hostCallBack.onCurrentWeatherSuccess(weatherInformation);
+                        baseCallbackActivity.onCurrentWeatherSuccess(weatherInformation);
                     }
                 });
     }
@@ -75,13 +75,13 @@ public class WeatherPresenter {
                     @Override
                     public void onError(Throwable e) {
                         //Notify about an error
-                        hostCallBack.onForecastError(new Error(e));
+                        baseCallbackActivity.onForecastError(new Error(e));
                     }
 
                     @Override
                     public void onNext(ForecastInformation forecastInformation) {
                         //Notify about completion or next event
-                        hostCallBack.onForecastSuccess(forecastInformation);
+                        baseCallbackActivity.onForecastSuccess(forecastInformation);
                     }
                 });
     }

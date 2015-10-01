@@ -2,6 +2,7 @@ package ekamp.currently.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import ekamp.currently.model.Temperature;
 import ekamp.currently.model.WeatherDescription;
 import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.model.Wind;
+import ekamp.currently.model.WeatherLocationController;
+import ekamp.currently.utils.FormatUtils;
 
 /**
  * {@link android.app.Fragment} used to show a forecasted {@link WeatherInformation}.
@@ -24,10 +27,16 @@ import ekamp.currently.model.Wind;
  * @author Erik Kamp
  * @since 9/22/15.
  */
-public class WeatherFragment extends BaseFragment {
+public class WeatherFragment extends Fragment {
+
+    @Bind(R.id.current_location)
+    TextView currnetLocationView;
 
     @Bind(R.id.current_temperature)
     TextView currentTemperatureView;
+
+    @Bind(R.id.weather_description)
+    TextView weatherDescriptionView;
 
     @Bind(R.id.max_temperature)
     TextView maxTemperatureView;
@@ -70,8 +79,12 @@ public class WeatherFragment extends BaseFragment {
         Temperature temperatureInformation = weatherInformation.getTemperatureInformation();
         Wind windInformation = weatherInformation.getWindInformation();
         WeatherDescription weatherDescription = weatherInformation.getWeatherDescription();
+        String fullAddress = WeatherLocationController.getInstance().getLastCollectedAddress(),
+                currentTown = FormatUtils.extractTownFromAddress(fullAddress);
 
         currentTemperatureView.setText(temperatureInformation.getCurrentTempForDisplay());
+        currnetLocationView.setText(currentTown);
+        weatherDescriptionView.setText(weatherDescription.getGeneralDescription());
         maxTemperatureView.setText(temperatureInformation.getMaxTempForDisplay());
         minTemperatureView.setText(temperatureInformation.getMinTempForDisplay());
         humidityView.setText(temperatureInformation.getHumidityForDisplay());
@@ -85,12 +98,5 @@ public class WeatherFragment extends BaseFragment {
 
     private void setWeatherInformation(WeatherInformation weatherInformation) {
         this.weatherInformation = weatherInformation;
-    }
-
-    @Override
-    public String toString() {
-        return "WeatherFragment{" +
-                "weatherInformation=" + weatherInformation +
-                '}';
     }
 }

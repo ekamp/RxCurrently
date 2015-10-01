@@ -7,4 +7,7 @@
     <string name="humidity_label">Humidity :</string>
     <string name="wind_speed_label">Wind Speed :</string>
 
+    <!-- Content Descriptions -->
+    <string name="weather_icon_content_description">Icon used to visually display the weather to the user</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package ekamp.currently.view;
+package ekamp.currently.utils;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

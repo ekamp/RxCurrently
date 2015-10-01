@@ -15,8 +15,6 @@ public class WeatherInformation {
     private WeatherDescription weatherDescription;
     private DateTime timeWindow;
 
-
-
     public WeatherInformation() {
     }
 
