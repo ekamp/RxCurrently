@@ -10,4 +10,13 @@
     <!-- Content Descriptions -->
     <string name="weather_icon_content_description">Icon used to visually display the weather to the user</string>
 
+    <!-- Dialog formatting -->
+    <string name="error_dialog_confirmation_button_text">Confirm</string>
+
+    <!-- Error titles -->
+    <string name="error_default_title">Error</string>
+
+    <!-- Error Messages -->
+    <string name="error_location_message">We could not determine your location, please make sure your GPS is turned on.</string>
+
 </resources>

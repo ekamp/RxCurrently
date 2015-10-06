@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/success_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/standard_weather_element_margin"
+    android:layout_marginLeft="@dimen/standard_weather_element_margin"
+    android:layout_marginRight="@dimen/standard_weather_element_margin"
+    android:layout_marginTop="@dimen/standard_weather_element_margin">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="@dimen/standard_weather_element_margin"
+        android:paddingLeft="@dimen/standard_weather_element_margin"
+        android:paddingRight="@dimen/standard_weather_element_margin"
+        android:paddingTop="@dimen/standard_weather_element_margin"
+        android:textSize="@dimen/abc_text_size_body_1_material"
+        tools:text="Some error message" />
+
+    <Button
+        android:id="@+id/confirmation_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dialog_fragment_button_height"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/message"
+        android:layout_marginBottom="@dimen/standard_weather_element_margin"
+        android:layout_marginRight="@dimen/standard_weather_element_margin"
+        android:layout_marginTop="@dimen/standard_weather_element_margin"
+        android:minWidth="@dimen/dialog_fragment_button_height"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/error_dialog_confirmation_button_text"
+        android:textSize="@dimen/abc_text_size_button_material" />
+
+</RelativeLayout>

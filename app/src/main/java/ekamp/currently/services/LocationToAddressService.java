@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,12 +40,14 @@ public class LocationToAddressService extends IntentService {
                     location.getLatitude(),
                     location.getLongitude(),
                     1);
+            broadcastResults(Constants.RESULT_SUCCESS, parseAddress());
         } catch (IOException io) {
-
+            broadcastResults(Constants.RESULT_FAILURE, io.toString());
         } catch (IllegalArgumentException illegalArg) {
-
+            broadcastResults(Constants.RESULT_FAILURE, illegalArg.toString());
+        } catch (NullPointerException e) {
+            broadcastResults(Constants.RESULT_FAILURE, e.toString());
         }
-        broadcastResults(Constants.RESULT_SUCCESS, parseAddress());
     }
 
     private String parseAddress() {

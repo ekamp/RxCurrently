@@ -10,6 +10,12 @@
         app:tabGravity="fill"
         app:tabMode="scrollable" />
 
+    <ProgressBar
+        android:id="@+id/request_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/forecast_weather_view_pager"
         android:layout_width="match_parent"

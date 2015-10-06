@@ -1,5 +1,9 @@
 package ekamp.currently.model;
 
+import org.joda.time.DateTime;
+
+import ekamp.currently.utils.DataUtils;
+
 /**
  * Cached weather information from latest request. This information should be invalidated every
  * three hours.
@@ -9,10 +13,9 @@ package ekamp.currently.model;
  */
 public class WeatherInformationCache {
 
-    //TODO setup Handler Thread to include 3 hour time to invalidate our cache
-
     private static WeatherInformationCache weatherInformationCache;
     private static ForecastInformation forecastInformation;
+    private DateTime lastUpdatedTime;
 
     public static WeatherInformationCache getInstance() {
         if (weatherInformationCache == null) {
@@ -37,8 +40,9 @@ public class WeatherInformationCache {
      *
      * @param forecastInformation {@link ForecastInformation} to be cached.
      */
-    public void setForecastInformation(ForecastInformation forecastInformation) {
+    public void storeForecastInformation(ForecastInformation forecastInformation) {
         WeatherInformationCache.forecastInformation = forecastInformation;
+        lastUpdatedTime = DateTime.now();
     }
 
     /**
@@ -48,5 +52,14 @@ public class WeatherInformationCache {
      */
     public ForecastInformation getForecastInformation() {
         return forecastInformation;
+    }
+
+    /**
+     * Determines if the currently cached {@link ForecastInformation} is valid.
+     *
+     * @return true if the data is valid, false if no data or if the data is expired.
+     */
+    public boolean hasValidForecastInformation() {
+        return lastUpdatedTime != null && DataUtils.isLessThanThreeHoursOld(lastUpdatedTime);
     }
 }

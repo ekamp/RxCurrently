@@ -15,24 +15,21 @@ public abstract class BaseCallbackActivity extends AppCompatActivity {
 
     /**
      * Called when the weather information has downloaded successfully.
-     *
-     * @param weatherInformation successfully collected information relating to the current weather.
      */
-    public abstract void onCurrentWeatherSuccess(WeatherInformation weatherInformation);
+    public abstract void onWeatherInformationCollected();
 
     /**
      * Called when the weather information request encountered an error.
      *
      * @param error error encountered during request.
      */
-    public abstract void onCurrentWeatherError(Error error);
+    public abstract void onWeatherInformationCollectionError(Error error);
 
-    /**
-     * Called when the forecast information has downloaded successfully.
-     *
-     * @param forecastInformation successfully collected information relating to weekly forecast.
-     */
-    public abstract void onForecastSuccess(ForecastInformation forecastInformation);
+//    /**
+//     * Called when the forecast information has downloaded successfully.
+//     */
+//    public abstract void onForecastSuccess();
+//
 
     /**
      * Called when the forecast information request encountered an error.

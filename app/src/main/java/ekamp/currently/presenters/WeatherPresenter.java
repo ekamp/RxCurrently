@@ -2,6 +2,7 @@ package ekamp.currently.presenters;
 
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;
+import ekamp.currently.model.WeatherInformationCache;
 import ekamp.currently.services.WeatherService;
 import ekamp.currently.view.activities.BaseCallbackActivity;
 import rx.Observer;
@@ -38,19 +39,19 @@ public class WeatherPresenter {
                 .subscribe(new Observer<WeatherInformation>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         //Notify about an error
-                        baseCallbackActivity.onCurrentWeatherError(new Error(e));
+                        baseCallbackActivity.onWeatherInformationCollectionError(new Error(e));
                     }
 
                     @Override
                     public void onNext(WeatherInformation weatherInformation) {
                         //Notify about completion or next event
-                        baseCallbackActivity.onCurrentWeatherSuccess(weatherInformation);
+                        WeatherInformationCache.getInstance().addCurrentWeatherInformationToForecast(weatherInformation);
+                        baseCallbackActivity.onWeatherInformationCollected();
                     }
                 });
     }
@@ -61,7 +62,11 @@ public class WeatherPresenter {
      *
      * @param cityName name of the city in which to grab weather updates from.
      */
-    public void loadForecast(String cityName) {
+    public void loadForecast(final String cityName) {
+        if (WeatherInformationCache.getInstance().hasValidForecastInformation()) {
+            loadCurrentWeather(cityName);
+            return;
+        }
         weatherService.getForcastedWeatherServiceAPI()
                 .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL)
                 .subscribeOn(Schedulers.newThread())
@@ -69,7 +74,6 @@ public class WeatherPresenter {
                 .subscribe(new Observer<ForecastInformation>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
@@ -81,7 +85,8 @@ public class WeatherPresenter {
                     @Override
                     public void onNext(ForecastInformation forecastInformation) {
                         //Notify about completion or next event
-                        baseCallbackActivity.onForecastSuccess(forecastInformation);
+                        WeatherInformationCache.getInstance().storeForecastInformation(forecastInformation);
+                        loadCurrentWeather(cityName);
                     }
                 });
     }

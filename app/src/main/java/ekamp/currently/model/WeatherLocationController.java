@@ -24,7 +24,6 @@ public class WeatherLocationController {
     private String lastCollectedAddress;
     private static final int LOCATION_REFRESH_TIME = 600000, LOCATION_REFRESH_DISTANCE = 8000;
 
-
     public static WeatherLocationController init(LocationListener locationListener, BaseCallbackActivity weatherParentActivity) {
         weatherLocationController = new WeatherLocationController();
         weatherLocationController.locationListener = locationListener;
@@ -75,7 +74,7 @@ public class WeatherLocationController {
      *
      * @param lastAddress last address to be collected and parsed
      */
-    public void setLastCollectedAddress(String lastAddress) {
+    public void storeLastCollectedAddress(String lastAddress) {
         lastCollectedAddress = lastAddress;
     }
 

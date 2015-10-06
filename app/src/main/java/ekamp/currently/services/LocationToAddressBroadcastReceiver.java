@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import ekamp.currently.model.Constants;
+import ekamp.currently.model.WeatherLocationController;
 import ekamp.currently.view.activities.BaseCallbackActivity;
 
 /**
@@ -26,6 +27,7 @@ public class LocationToAddressBroadcastReceiver extends BroadcastReceiver {
         int resultCode = intent.getIntExtra(Constants.RESULT_DATA_KEY, 1);
         if (resultCode == 0) {
             String result = intent.getStringExtra(Constants.LOCATION_DATA_EXTRA);
+            WeatherLocationController.getInstance().storeLastCollectedAddress(result);
             baseCallbackActivity.onLocationResolved(result);
         } else {
             baseCallbackActivity.onLocationResolutionFailure();
