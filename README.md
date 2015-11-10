@@ -9,18 +9,12 @@ I realized that I was using the application more and more to check the weather a
 This application is written in loosely based MVP, utilizing Retrofit to handle network requests and RxAndroid for application communication / subscriptions.
 
 ##Libraries / APIs utilized
-- RxAndroid
-	Generalized application structure and communication.
-- Butterknife
-	View and resource binding.
-- Retrofit
-	Network requests.
-- Picasso
-	Image request and image loading.
-- Joda-Time
-	Time zone conversion and date formatting.
-- OpenWeatherMap
-	API for weather information.
+- <b>RxAndroid</b> : Generalized application structure and communication.
+- <b>Butterknife</b> : View and resource binding.
+- <b>Retrofit</b> : Network requests.
+- <b>Picasso</b> : Image request and image loading.
+- <b>Joda-Time</b> : Time zone conversion and date formatting.
+- <b>OpenWeatherMap</b> : API for weather information.
 
 ##Screenshots
 ![Main Screenshot](https://github.com/ekamp/RxCurrently/blob/master/ScreenShotMain.png "Opening Screenshot")
