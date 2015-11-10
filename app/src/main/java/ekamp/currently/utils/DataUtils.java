@@ -10,6 +10,9 @@ import org.joda.time.DateTime;
  */
 public class DataUtils {
 
+    private DataUtils() {
+    }
+
     /**
      * Determines if the given {@link DateTime} is within three hours of the current time.
      *

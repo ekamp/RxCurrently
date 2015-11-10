@@ -29,7 +29,9 @@ import ekamp.currently.model.WeatherInformation;
  * @since 9/20/15
  */
 public class ForecastInformationConverter implements JsonDeserializer<ForecastInformation> {
-    private static String TAG_FORCAST_LIST = "list", TAG_WEATHER_FORECAST_TIME = "time", TAG_WEATHER_FORECAST_START = "dt_txt";
+    private static String TAG_FORCAST_LIST = "list",
+            TAG_WEATHER_FORECAST_START = "dt_txt",
+            WEATHER_DATE_FORMATTING = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public ForecastInformation deserialize(JsonElement rootJsonElement, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -39,22 +41,22 @@ public class ForecastInformationConverter implements JsonDeserializer<ForecastIn
         if (!jsonObject.has(TAG_FORCAST_LIST)) {
             throw new JsonParseException("Cannot find forecasted list");
         }
-        JsonArray forcastJsonArray = jsonObject.getAsJsonArray(TAG_FORCAST_LIST);
-        WeatherInformation forcastedWeatherInformation;
+        JsonArray forecastJsonArray = jsonObject.getAsJsonArray(TAG_FORCAST_LIST);
+        WeatherInformation forecastedWeatherInformation;
         JsonObject weatherJsonObject;
         DateTime forecastedTimeStart;
-        weatherInformationList = new ArrayList<>(forcastJsonArray.size());
+        weatherInformationList = new ArrayList<>(forecastJsonArray.size());
 
-        for (JsonElement weatherJsonElement : forcastJsonArray) {
+        for (JsonElement weatherJsonElement : forecastJsonArray) {
             try {
                 weatherJsonObject = weatherJsonElement.getAsJsonObject();
                 forecastedTimeStart = parseWeatherStartTime(weatherJsonObject);
                 boolean weatherObjectIsOutDated = forecastedTimeStart.isBeforeNow();
 
                 if (!weatherObjectIsOutDated) {
-                    forcastedWeatherInformation = CurrentWeatherInformationConverter.parseWeatherInformation(weatherJsonObject);
-                    forcastedWeatherInformation.setTimeWindow(forecastedTimeStart);
-                    weatherInformationList.add(forcastedWeatherInformation);
+                    forecastedWeatherInformation = CurrentWeatherInformationConverter.parseWeatherInformation(weatherJsonObject);
+                    forecastedWeatherInformation.setTimeWindow(forecastedTimeStart);
+                    weatherInformationList.add(forecastedWeatherInformation);
                 }
             } catch (JsonParseException jsonException) {
                 continue;
@@ -67,7 +69,7 @@ public class ForecastInformationConverter implements JsonDeserializer<ForecastIn
         String startWeatherTimeString = weatherJsonRoot.get(TAG_WEATHER_FORECAST_START).getAsString();
         DateTime parsedDateTime = null;
         try {
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(WEATHER_DATE_FORMATTING);
             parsedDateTime = formatter.parseDateTime(startWeatherTimeString);
         } catch (Exception e) {
             Log.e(getClass().getName(), "");

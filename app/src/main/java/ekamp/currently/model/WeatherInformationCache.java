@@ -9,13 +9,16 @@ import ekamp.currently.utils.DataUtils;
  * three hours.
  *
  * @author Erik Kamp
- * @since 9/25/15.
+ * @since 9/25/15
  */
 public class WeatherInformationCache {
 
     private static WeatherInformationCache weatherInformationCache;
     private static ForecastInformation forecastInformation;
     private DateTime lastUpdatedTime;
+
+    private WeatherInformationCache() {
+    }
 
     public static WeatherInformationCache getInstance() {
         if (weatherInformationCache == null) {

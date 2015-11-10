@@ -17,6 +17,9 @@ public class ViewUtils {
     public static final String DATE_FORMAT = "MM/dd hh:mma";
     public static final String CURRENT_TIME_DEFAULT = "Current Weather";
 
+    private ViewUtils() {
+    }
+
     public static String formatDateTimeForDisplay(DateTime dateTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_FORMAT);
         return dateTimeFormatter.print(dateTime);

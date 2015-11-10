@@ -25,7 +25,7 @@ public class Wind {
         return speed;
     }
 
-    public String getSpeedForDisplay(){
+    public String getSpeedForDisplay() {
         return Double.toString(speed);
     }
 

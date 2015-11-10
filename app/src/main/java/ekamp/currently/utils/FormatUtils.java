@@ -8,6 +8,9 @@ package ekamp.currently.utils;
  */
 public class FormatUtils {
 
+    private FormatUtils() {
+    }
+
     /**
      * Properly formats the address for viewable purposes, we simply extract the town from our
      * address {@link String}.
