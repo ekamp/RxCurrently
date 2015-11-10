@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ import ekamp.currently.model.Constants;
 public class LocationToAddressService extends IntentService {
 
     private List<Address> addresses = null;
+    private static final String GEOCODER_NOT_PRESENT = "Geocoder is not enabled on this device";
 
     public LocationToAddressService() {
         super("LocationToAddressService");
@@ -34,7 +36,15 @@ public class LocationToAddressService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
+        if (!geocoder.isPresent()) {
+            broadcastResults(Constants.RESULT_FAILURE, GEOCODER_NOT_PRESENT);
+        } else {
+            Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
+            handleLocationInformation(location, geocoder);
+        }
+    }
+
+    private void handleLocationInformation(Location location, Geocoder geocoder) {
         try {
             addresses = geocoder.getFromLocation(
                     location.getLatitude(),

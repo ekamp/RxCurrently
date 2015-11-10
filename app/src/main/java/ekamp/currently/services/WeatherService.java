@@ -85,7 +85,9 @@ public class WeatherService {
     public interface CurrentWeatherServiceAPI {
         @GET("/weather")
         Observable<WeatherInformation>
-        getWeatherInformation(@Query("q") String cityName, @Query("units") String tempUnitType);
+        getWeatherInformation(@Query("q") String cityName, @Query("units") String tempUnitType,
+                              @Query("APPID") String apiKey);
+
     }
 
     /**
@@ -94,6 +96,8 @@ public class WeatherService {
     public interface ForcastedWeatherServiceAPI {
         @GET("/forecast")
         Observable<ForecastInformation>
-        getWeatherInformation(@Query("q") String cityName, @Query("units") String tempUnitType);
+        getWeatherInformation(@Query("q") String cityName, @Query("units") String tempUnitType,
+                              @Query("APPID") String apiKey);
+
     }
 }

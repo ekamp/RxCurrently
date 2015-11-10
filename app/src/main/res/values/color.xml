@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="forecast_tab_background">#3F51B5</color>
+    <color name="forecast_tab_text_default_color">#E8EAF6</color>
+    <color name="forecast_tab_text_unselected_color">#283593</color>
+    <color name="action_bar_color">#1A237E</color>
+</resources>

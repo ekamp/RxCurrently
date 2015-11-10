@@ -1,5 +1,6 @@
 package ekamp.currently.presenters;
 
+import ekamp.currently.model.Constants;
 import ekamp.currently.model.ForecastInformation;
 import ekamp.currently.model.WeatherInformation;
 import ekamp.currently.model.WeatherInformationCache;
@@ -33,7 +34,7 @@ public class WeatherPresenter {
      */
     public void loadCurrentWeather(String cityName) {
         weatherService.getCurrentWeatherServiceAPI()
-                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL)
+                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL, Constants.WEATHER_API_KEY)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<WeatherInformation>() {
@@ -68,7 +69,7 @@ public class WeatherPresenter {
             return;
         }
         weatherService.getForcastedWeatherServiceAPI()
-                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL)
+                .getWeatherInformation(cityName, WeatherService.TEMP_TYPE_IMPERIAL, Constants.WEATHER_API_KEY)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ForecastInformation>() {

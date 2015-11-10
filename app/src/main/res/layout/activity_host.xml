@@ -7,8 +7,12 @@
         android:id="@+id/forecast_day_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/forecast_tab_background"
         app:tabGravity="fill"
-        app:tabMode="scrollable" />
+        app:tabIndicatorColor="@color/forecast_tab_text_default_color"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/forecast_tab_text_default_color"
+        app:tabTextColor="@color/forecast_tab_text_unselected_color" />
 
     <ProgressBar
         android:id="@+id/request_progress_bar"

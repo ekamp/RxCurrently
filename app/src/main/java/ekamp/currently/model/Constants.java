@@ -11,4 +11,5 @@ public class Constants {
     public static final String RESULT_DATA_KEY = "RESULT_DATA_KEY";
     public static final int RESULT_SUCCESS = 0, RESULT_FAILURE = 1;
     public static final String LOCATION_TO_ADDRESS_FILTER_ACTION = "locationToAddressFilterAction";
+    public static final String WEATHER_API_KEY = "1186528906facbd9cfd3d9f52052d427";
 }
